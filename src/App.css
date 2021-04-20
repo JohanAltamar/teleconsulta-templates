@@ -1,3 +1,7 @@
+.swal2-content{
+  max-height: 75vh;
+  overflow: auto;
+}
 .swal2-html-container{
   text-align: left;
 }
