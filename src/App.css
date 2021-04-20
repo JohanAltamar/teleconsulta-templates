@@ -1,3 +1,11 @@
+.swal2-html-container{
+  text-align: left;
+}
+
+.swal2-html-container > span {
+  display: block;
+}
+
 .App {
   text-align: center;
 }

@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import MomentUtils from '@date-io/moment';
+import {
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <App />
+    </MuiPickersUtilsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

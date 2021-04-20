@@ -1,24 +1,17 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { AppContext } from './context/AppContext';
+import RadioButtonsGroup from './components/RadioButtons';
+import Displayer from './components/Form/Displayer';
 import './App.css';
 
 function App() {
+  const [option, setOption] = useState("nuevo");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ option, setOption }}>
+      <RadioButtonsGroup />
+      <Displayer />
+    </AppContext.Provider>
   );
 }
 
