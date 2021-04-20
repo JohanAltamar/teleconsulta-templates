@@ -29,13 +29,53 @@ const printNew = (values) => {
     <span>Fecha de último contacto: ${new Date(values.lastDate).toLocaleDateString()}</span>
     <span>Datos adicionales: ${values.email} ${values.extras}</span>
   `
-  Swal.fire({
-    html: report,
-  })
+  const report2 = `
+    CASO NUEVO
+    Fecha de Toma: ${new Date().toLocaleDateString()}
+    Ciudad: ${values.location}
+    Número de documento: ${values.id}
+    Nombre Completo: ${values.name}
+    Caso #: ${values.caso}
+    
+    Nombre: ${values.name}
+    Número de documento: ${values.id}
+    Edad: ${values.age}
+    Telefono: ${values.telephone}
+    Departamento: ${values.location.split(",")[1]}
+    Ciudad: ${values.location.split(",")[0]}
+    Dirección: ${values.address}
+    Barrio: ${values.barrio}
+    Ocupación: ${values.ocupation}
+    Caso #: ${values.caso}
+    Prioridad: ${values.priority}
+    Lugar de toma: ${values.testPlace}
+    Tipo de prueba: ${values.testType}
+    Fecha de Inicio de síntomas: ${new Date(values.startDate).toLocaleDateString()}
+    Síntomas: ${values.symptoms}
+    Factores de riesgo / nexos: ${values.risks}
+    Fecha de último contacto: ${new Date(values.lastDate).toLocaleDateString()}
+    Datos adicionales: ${values.email} ${values.extras}
+  `
+  return [report, report2]
 }
 
 const printSeguimiento = (values) => {
   values.name = values.name.split(",").reverse().join(" ")
+  const report2 = `
+    SEGUIMIENTO
+    Nombre Completo: ${values.name}
+    Número de documento: ${values.id}
+    Edad: ${values.age}
+    Telefono: ${values.telephone}
+    Departamento: ${values.location.split(",")[1]}
+    Ciudad: ${values.location.split(",")[0]}
+    Caso #: ${values.caso}
+    Tiene Prueba? ${values.test}
+    Tipo de prueba: ${values.testType}
+    Prueba cargada en el sistema? ${values.testLoaded}
+    Resultado de prueba? ${values.testResult.toUpperCase()}
+    Correo: ${values.email}
+    `
   const report = `
     <h4>SEGUIMIENTO</h4>
     <span>Nombre Completo: ${values.name}</span>
@@ -51,9 +91,7 @@ const printSeguimiento = (values) => {
     <span>Resultado de prueba? ${values.testResult.toUpperCase()}</span>
     <span>Correo: ${values.email}</span>
     `
-  Swal.fire({
-    html: report,
-  })
+  return [report, report2]
 }
 
 const printGeneral = (values) => {
@@ -70,9 +108,19 @@ const printGeneral = (values) => {
       "<span>Caso #: " + values.caso + "</span>"
     ) : ""}
   `
-  Swal.fire({
-    html: report,
-  })
+  const report2 = `
+    ${values.option.toUpperCase()}
+    Nombre Completo: ${values.name}
+    Número de documento: ${values.id}
+    Edad: ${values.age}
+    Telefono: ${values.telephone}
+    Departamento: ${values.location.split(",")[1]}
+    Ciudad: ${values.location.split(",")[0]}
+    ${values.option === "alta covid" ? (
+      "Caso #: " + values.caso + ""
+    ) : ""}
+  `
+  return [report, report2]
 }
 
 const printReinfeccion = (values) => {
@@ -90,9 +138,20 @@ const printReinfeccion = (values) => {
     <span>Datos adicionales: #############</span>
 
     `
-  Swal.fire({
-    html: report,
-  })
+  const report2 = `
+    REINFECCION
+    Nombre Completo: ${values.name}
+    Número de documento: ${values.id}
+    Edad: ${values.age}
+    Telefono: ${values.telephone}
+    Departamento: ${values.location.split(",")[1]}
+    Ciudad: ${values.location.split(",")[0]}
+    Prueba: ######################
+    Ficha NO: ######################
+    Datos adicionales: #############
+
+    `
+  return [report, report2]
 }
 
 const printReport = (option, formValue) => {
@@ -103,34 +162,54 @@ const printReport = (option, formValue) => {
   resultObject.location = `${city}, ${departments[department].departamento}`;
   resultObject.option = option;
 
+  let reports;
+
   switch (option) {
     case "nuevo":
-      printNew(resultObject)
+      reports = printNew(resultObject)
       break;
     case "seguimiento":
-      printSeguimiento(resultObject)
+      reports = printSeguimiento(resultObject)
       break;
     case "no contesta":
-      printGeneral(resultObject)
+      reports = printGeneral(resultObject)
       break;
     case "doble agenda":
-      printGeneral(resultObject)
+      reports = printGeneral(resultObject)
       break;
     case "no covid":
-      printGeneral(resultObject)
+      reports = printGeneral(resultObject)
       break;
     case "alta covid":
-      printGeneral(resultObject)
+      reports = printGeneral(resultObject)
       break;
     case "urgente":
-      printGeneral(resultObject)
+      reports = printGeneral(resultObject)
       break;
     case "reinfeccion":
-      printReinfeccion(resultObject)
+      reports = printReinfeccion(resultObject)
       break;
     default:
       break;
   }
+
+  const [reportAlert, reportText] = reports;
+
+  Swal.fire({
+    html: reportAlert,
+    confirmButtonText: "Copiar reporte"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      navigator.clipboard.writeText(reportText)
+      Swal.fire({
+        // position: 'top-end',
+        icon:"success",
+        title: 'Text copiado al portapapeles con éxito',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
 }
 
 export default printReport;
