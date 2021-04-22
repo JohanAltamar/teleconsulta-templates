@@ -69,6 +69,9 @@ const Form = ({ option, caseField, hasTest }) => {
     risks,
     lastDate,
     extras,
+    from,
+    appPassword,
+    testDate,
   } = formValue;
 
   const handleDateChange = (name, date) => {
@@ -323,6 +326,19 @@ const Form = ({ option, caseField, hasTest }) => {
             onChange={(date) => handleDateChange("startDate", date)}
           />
 
+          <KeyboardDatePicker
+            fullWidth
+            autoOk
+            disablePast
+            variant="inline"
+            inputVariant="outlined"
+            label="Día de toma de la prueba"
+            format="DD/MM/yyyy"
+            value={testDate}
+            InputAdornmentProps={{ position: "start" }}
+            onChange={(date) => handleDateChange("testDate", date)}
+          />
+
           <Field
             placeholder="cefalea, etc ..."
             label="Síntomas"
@@ -383,6 +399,7 @@ const Form = ({ option, caseField, hasTest }) => {
           variant="contained"
           color="secondary"
           onClick={handleEmailModalState}
+          disabled={!(from && appPassword)}
         >
           Correo
         </Button>
