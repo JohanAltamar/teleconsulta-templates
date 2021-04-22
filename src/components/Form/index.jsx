@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Button,
   FormControl,
@@ -12,15 +13,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import Swal from "sweetalert2";
 
-import { useForm } from "../../hooks/useForm";
-import initialState from "../../utils/initialState";
+import { AppContext } from "../../context/AppContext";
 import printReport from "../../utils/printReport";
 
 const useStyles = makeStyles((theme) => ({
   form: {
     margin: "auto",
     marginTop: theme.spacing(2),
-    maxWidth: "300px",
+    maxWidth: "380px",
     "& > *": {
       marginBottom: theme.spacing(2),
     },
@@ -41,7 +41,9 @@ const Field = ({ children, ...rest }) => {
 
 const Form = ({ option, caseField, hasTest }) => {
   const classes = useStyles();
-  const [formValue, handleInputChange, reset] = useForm(initialState);
+  const { formValue, handleInputChange, reset, setEmailModal } = useContext(
+    AppContext
+  );
 
   const {
     name,
@@ -81,6 +83,10 @@ const Form = ({ option, caseField, hasTest }) => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     printReport(option, formValue);
+  };
+
+  const handleEmailModalState = () => {
+    setEmailModal(true);
   };
 
   const handleReset = (ev) => {
@@ -372,6 +378,13 @@ const Form = ({ option, caseField, hasTest }) => {
       <div className={classes.buttonsContainer}>
         <Button variant="contained" color="primary" size="medium" type="submit">
           Generar Reporte
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleEmailModalState}
+        >
+          Correo
         </Button>
         <Button
           variant="outlined"
