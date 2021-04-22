@@ -4,7 +4,7 @@ const printNew = (values) => {
   values.name = values.name.split(",").reverse().join(" ")
   const report = `
     <h4>CASO NUEVO</h4>
-    <span>Fecha de Toma: ${new Date().toLocaleDateString()}</span>
+    <span>Fecha de Toma: ${new Date(values.testDate).toLocaleDateString()}</span>
     <span>Ciudad: ${values.location}</span>
     <span>Número de documento: ${values.id}</span>
     <span>Nombre Completo: ${values.name}</span>
@@ -31,7 +31,7 @@ const printNew = (values) => {
   `
   const report2 = `
     CASO NUEVO
-    Fecha de Toma: ${new Date().toLocaleDateString()}
+    Fecha de Toma: ${new Date(values.testDate).toLocaleDateString()}
     Ciudad: ${values.location}
     Número de documento: ${values.id}
     Nombre Completo: ${values.name}
@@ -203,7 +203,7 @@ const printReport = (option, formValue) => {
       navigator.clipboard.writeText(reportText)
       Swal.fire({
         // position: 'top-end',
-        icon:"success",
+        icon: "success",
         title: 'Text copiado al portapapeles con éxito',
         showConfirmButton: false,
         timer: 1500
