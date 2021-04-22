@@ -133,9 +133,9 @@ const printReinfeccion = (values) => {
     <span>Telefono: ${values.telephone}</span>
     <span>Departamento: ${values.location.split(",")[1]}</span>
     <span>Ciudad: ${values.location.split(",")[0]}</span>
-    <span>Prueba: ######################</span>
-    <span>Ficha NO: ######################</span>
-    <span>Datos adicionales: #############</span>
+    <span>Prueba: ${values.testType}</span>
+    <span>Ficha NO: ${values.ficha}</span>
+    <span>Datos adicionales: ${values.extras}</span>
 
     `
   const report2 = `
@@ -146,9 +146,9 @@ const printReinfeccion = (values) => {
     Telefono: ${values.telephone}
     Departamento: ${values.location.split(",")[1]}
     Ciudad: ${values.location.split(",")[0]}
-    Prueba: ######################
-    Ficha NO: ######################
-    Datos adicionales: #############
+    Prueba: ${values.testType}
+    Ficha NO: ${values.ficha}
+    Datos adicionales: ${values.extras}
 
     `
   return [report, report2]

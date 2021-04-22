@@ -72,6 +72,7 @@ const Form = ({ option, caseField, hasTest }) => {
     from,
     appPassword,
     testDate,
+    ficha,
   } = formValue;
 
   const handleDateChange = (name, date) => {
@@ -103,70 +104,72 @@ const Form = ({ option, caseField, hasTest }) => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
-      <Field
-        label="Nombre del paciente"
-        placeholder="Altamar Rocha, Johan"
-        name="name"
-        value={name}
-        onChange={handleInputChange}
-        required
-      />
-      <Field
-        label="Identificación"
-        placeholder="1140859656"
-        name="id"
-        value={id}
-        onChange={handleInputChange}
-        required
-      />
-      <Field
-        label="Edad"
-        placeholder="42"
-        name="age"
-        value={age}
-        onChange={handleInputChange}
-        type="number"
-        required
-      />
-      <Field
-        label="Telefono"
-        placeholder="3016902545"
-        name="telephone"
-        value={telephone}
-        onChange={handleInputChange}
-        required
-      />
-      {departments && (
+      <>
         <Field
-          label="Departamento"
-          name="department"
-          select
-          value={department}
+          label="Nombre del paciente"
+          placeholder="Altamar Rocha, Johan"
+          name="name"
+          value={name}
           onChange={handleInputChange}
-        >
-          {departments.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
-              {item.departamento}
-            </MenuItem>
-          ))}
-        </Field>
-      )}
+          required
+        />
+        <Field
+          label="Identificación"
+          placeholder="1140859656"
+          name="id"
+          value={id}
+          onChange={handleInputChange}
+          required
+        />
+        <Field
+          label="Edad"
+          placeholder="42"
+          name="age"
+          value={age}
+          onChange={handleInputChange}
+          type="number"
+          required
+        />
+        <Field
+          label="Telefono"
+          placeholder="3016902545"
+          name="telephone"
+          value={telephone}
+          onChange={handleInputChange}
+          required
+        />
+        {departments && (
+          <Field
+            label="Departamento"
+            name="department"
+            select
+            value={department}
+            onChange={handleInputChange}
+          >
+            {departments.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.departamento}
+              </MenuItem>
+            ))}
+          </Field>
+        )}
 
-      {departments && (
-        <Field
-          label="Ciudad"
-          name="city"
-          select
-          value={city}
-          onChange={handleInputChange}
-        >
-          {departments[department].ciudades.map((item, id) => (
-            <MenuItem key={id} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-        </Field>
-      )}
+        {departments && (
+          <Field
+            label="Ciudad"
+            name="city"
+            select
+            value={city}
+            onChange={handleInputChange}
+          >
+            {departments[department].ciudades.map((item, id) => (
+              <MenuItem key={id} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Field>
+        )}
+      </>
 
       {caseField && (
         <Field
@@ -315,6 +318,7 @@ const Form = ({ option, caseField, hasTest }) => {
           </FormControl>
 
           <KeyboardDatePicker
+            fullWidth
             autoOk
             disableFuture
             variant="inline"
@@ -382,15 +386,55 @@ const Form = ({ option, caseField, hasTest }) => {
       )}
 
       {(option === "seguimiento" || option === "nuevo") && (
-        <Field
-          placeholder="nombre@example.com"
-          label="Correo electronico"
-          value={email}
-          name="email"
-          onChange={handleInputChange}
-        />
+        <>
+          <Field
+            placeholder="nombre@example.com"
+            label="Correo electronico"
+            value={email}
+            name="email"
+            onChange={handleInputChange}
+          />
+        </>
       )}
 
+      {option === "reinfeccion" && (
+        <>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Tipo de prueba</FormLabel>
+            <RadioGroup
+              name="testType"
+              value={testType}
+              onChange={handleInputChange}
+            >
+              <FormControlLabel
+                value="antigenica"
+                control={<Radio />}
+                label="Antigenica"
+              />
+              <FormControlLabel value="PCR" control={<Radio />} label="PCR" />
+            </RadioGroup>
+          </FormControl>
+          <Field
+            label="Ficha #"
+            placeholder="45466"
+            name="ficha"
+            value={ficha}
+            onChange={handleInputChange}
+            type="number"
+          />
+          <Field
+            placeholder="correo electrónico, otros..."
+            label="Información adicional"
+            value={extras}
+            name="extras"
+            multiline
+            rowsMax={4}
+            onChange={handleInputChange}
+          />
+        </>
+      )}
+
+      {/* ! ULTIMO - BUTTONS CONTAINER */}
       <div className={classes.buttonsContainer}>
         <Button variant="contained" color="primary" size="medium" type="submit">
           Generar Reporte

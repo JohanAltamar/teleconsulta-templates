@@ -26,6 +26,7 @@ const initialState = {
   message: "Buen día \nadjunto le envío",
   subject: "",
   testDate: new Date(),
+  ficha: "",
 };
 
 export default initialState;
