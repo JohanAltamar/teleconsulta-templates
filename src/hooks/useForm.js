@@ -37,6 +37,17 @@ export const useForm = (initialState = {}) => {
     fetchDepartments();
   }
 
+  const resetSomeFields = (...fields) => {
+    const resetObject = {};
+    fields.forEach(field => {
+      resetObject[field] = initialState[field] || "";
+    })
+
+    setValues({ ...values, ...resetObject })
+
+    localStorage.setItem("teleconsulta", JSON.stringify({ ...values, ...resetObject }))
+  }
+
 
   const handleInputChange = ({ target }) => {
 
@@ -48,6 +59,6 @@ export const useForm = (initialState = {}) => {
     localStorage.setItem("teleconsulta", JSON.stringify({ ...values, [target.name]: target.value }))
   }
 
-  return [values, handleInputChange, reset];
+  return [values, handleInputChange, reset, resetSomeFields];
 
 }
