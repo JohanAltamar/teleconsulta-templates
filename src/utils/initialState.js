@@ -21,6 +21,11 @@ const initialState = {
   risks: "",
   lastDate: new Date(),
   extras: "",
+  from: "",
+  appPassword: "",
+  message: "Buen día \nadjunto le envío",
+  subject: "",
+  testDate: new Date(),
 };
 
 export default initialState;
