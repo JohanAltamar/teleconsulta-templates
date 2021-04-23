@@ -86,6 +86,10 @@ const Form = ({ option, caseField, hasTest }) => {
     appPassword,
     testDate,
     ficha,
+    cuidador,
+    historiaClinica,
+    ambulance,
+    medico,
   } = formValue;
 
   const handleDateChange = (name, date) => {
@@ -410,6 +414,7 @@ const Form = ({ option, caseField, hasTest }) => {
         </>
       )}
 
+      {/* REINFECCION */}
       {option === "reinfeccion" && (
         <>
           <FormControl component="fieldset">
@@ -419,22 +424,21 @@ const Form = ({ option, caseField, hasTest }) => {
               value={testType}
               onChange={handleInputChange}
             >
-              <FormControlLabel
-                value="antigenica"
-                control={<Radio />}
-                label="Antigenica"
-              />
               <FormControlLabel value="PCR" control={<Radio />} label="PCR" />
+              <FormControlLabel
+                value="PANEL VIRAL"
+                control={<Radio />}
+                label="PANEL VIRAL"
+              />
             </RadioGroup>
           </FormControl>
-          <Field
-            label="Ficha #"
-            placeholder="45466"
-            name="ficha"
-            value={ficha}
-            onChange={handleInputChange}
-            type="number"
-          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Ficha</FormLabel>
+            <RadioGroup name="ficha" value={ficha} onChange={handleInputChange}>
+              <FormControlLabel value="NO" control={<Radio />} label="NO" />
+              <FormControlLabel value="SI" control={<Radio />} label="SI" />
+            </RadioGroup>
+          </FormControl>
           <Field
             placeholder="correo electrónico, otros..."
             label="Información adicional"
@@ -442,6 +446,72 @@ const Form = ({ option, caseField, hasTest }) => {
             name="extras"
             multiline
             rowsMax={4}
+            onChange={handleInputChange}
+          />
+        </>
+      )}
+
+      {/* URGENTE */}
+      {option === "urgente" && (
+        <>
+          <Field
+            placeholder="Cra 25 # 25 - 25"
+            label="Dirección"
+            value={address}
+            name="address"
+            onChange={handleInputChange}
+          />
+          <Field
+            placeholder="Ana María Losada"
+            label="Nombre del cuidador"
+            value={cuidador.name}
+            name="cuidador.name"
+            onChange={handleInputChange}
+          />
+          <Field
+            placeholder="1145256698"
+            label="Documento del cuidador"
+            value={cuidador.id}
+            name="cuidador.id"
+            onChange={handleInputChange}
+          />
+          <Field
+            placeholder="Historia Clinica aquí"
+            label="ResumenHC"
+            value={historiaClinica}
+            name="historiaClinica"
+            onChange={handleInputChange}
+            multiline
+            rows={3}
+          />
+          <Field
+            placeholder="Especificar si require ambulancia o no, básica o medicalizada, paciente se mueve por sus propios medios"
+            label="Require Ambulancia"
+            value={ambulance}
+            name="ambulance"
+            onChange={handleInputChange}
+            multiline
+            rows={3}
+          />
+          <Field
+            placeholder="Pepita Pérez"
+            label="Nombre del médico"
+            value={medico.name}
+            name="medico.name"
+            onChange={handleInputChange}
+          />
+          <Field
+            placeholder="PepitaPerez@gmail.com"
+            label="Correo del médico"
+            value={medico.email}
+            name="medico.email"
+            onChange={handleInputChange}
+          />
+          <Field
+            placeholder="3256899663"
+            label="Celular del médico"
+            value={medico.cellphone}
+            name="medico.cellphone"
             onChange={handleInputChange}
           />
         </>
