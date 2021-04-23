@@ -134,7 +134,7 @@ const printReinfeccion = (values) => {
     <span>Departamento: ${values.location.split(",")[1]}</span>
     <span>Ciudad: ${values.location.split(",")[0]}</span>
     <span>Prueba: ${values.testType}</span>
-    <span>Ficha NO: ${values.ficha}</span>
+    <span>Ficha: ${values.ficha}</span>
     <span>Datos adicionales: ${values.extras}</span>
 
     `
@@ -147,10 +147,73 @@ const printReinfeccion = (values) => {
     Departamento: ${values.location.split(",")[1]}
     Ciudad: ${values.location.split(",")[0]}
     Prueba: ${values.testType}
-    Ficha NO: ${values.ficha}
+    Ficha: ${values.ficha}
     Datos adicionales: ${values.extras}
 
     `
+  return [report, report2]
+}
+
+const printUrgente = (values) => {
+  values.name = values.name.split(",").reverse().join(" ")
+  const report = `
+    <h4>URGENTE</h4>
+    <span>Ciudad: ${values.location}</span>
+    <span>Número de documento: ${values.id}</span>
+    <span>Nombre: ${values.name}</span>
+    <span>Telefono: ${values.telephone}</span>
+    <span>${values.ambulance}</span> 
+    <br/>
+    Se solicita codigo de urgencias del siguiente paciente:
+    <span>1. Nombre Completo: ${values.name}</span>
+    <br/>
+    <span>2. Identificación del paciente: CC ${values.id}</span>
+    <br/>
+    <span>3. Ciudad: ${values.location}</span>
+    <span>Dirección: ${values.address}</span>
+    <br/>
+    <span>4. Nombre del cuidador: ${values.cuidador.name}</span>
+    <span>CC: ${values.cuidador.id}</span>
+    <br/>
+    <span>5. Resumen HC:</span>
+    <span>${values.historiaClinica}</span>
+    <br/>
+    <span>6. Especificar si require ambulancia o no, básica o medicalizada: ${values.ambulance}</span>
+    <br/>
+    <span>7. Datos del médico que remite:</span>
+    <span>Nombre: ${values.medico.name}</span>
+    <span>Correo: ${values.medico.email}</span>
+    <span>Celular: ${values.medico.cellphone}</span>
+  `
+  const report2 = `
+    URGENTE
+    Ciudad: ${values.location}
+    Número de documento: ${values.id}
+    Nombre: ${values.name}
+    Telefono: ${values.telephone}
+    ${values.ambulance}
+    
+    Se solicita codigo de urgencias del siguiente paciente:
+    1. Nombre Completo: ${values.name}
+
+    2. Identificación del paciente: CC ${values.id}
+
+    3. Ciudad: ${values.location}
+    Dirección: ${values.address}
+
+    4. Nombre del cuidador: ${values.cuidador.name}
+    CC: ${values.cuidador.id}
+
+    5. Resumen HC:
+    ${values.historiaClinica}
+
+    6. Especificar si require ambulancia o no, básica o medicalizada: ${values.ambulance}
+
+    7. Datos del médico que remite:
+    Nombre:${values.medico.name}
+    Correo:${values.medico.email}
+    Celular:${values.medico.cellphone}
+  `
   return [report, report2]
 }
 
@@ -184,7 +247,7 @@ const printReport = (option, formValue) => {
       reports = printGeneral(resultObject)
       break;
     case "urgente":
-      reports = printGeneral(resultObject)
+      reports = printUrgente(resultObject)
       break;
     case "reinfeccion":
       reports = printReinfeccion(resultObject)
