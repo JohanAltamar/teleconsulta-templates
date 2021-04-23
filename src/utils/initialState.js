@@ -26,7 +26,18 @@ const initialState = {
   message: "Buen día \nadjunto le envío",
   subject: "",
   testDate: new Date(),
-  ficha: "",
+  ficha: "NO",
+  cuidador: {
+    id: "",
+    name: ""
+  },
+  historiaClinica: "",
+  ambulance: "",
+  medico: {
+    name: "",
+    email: "",
+    cellphone: "",
+  }
 };
 
 export default initialState;
