@@ -33,7 +33,7 @@ export const useForm = (initialState = {}) => {
 
   const reset = () => {
     const { from: initialFrom, appPassword: initialPassword, ...rest } = initialState;
-    const {from, appPassword } = values;
+    const { from, appPassword } = values;
 
     setValues({ ...values, ...rest });
     localStorage.setItem("teleconsulta", JSON.stringify({ from, appPassword, ...rest }))
@@ -53,11 +53,23 @@ export const useForm = (initialState = {}) => {
 
 
   const handleInputChange = ({ target }) => {
+    const isObjectTarget = target.name.includes(".");
+    const targetName = target.name.split(".")
 
-    setValues({
-      ...values,
-      [target.name]: target.value
-    });
+    if (isObjectTarget) {
+      setValues({
+        ...values,
+        [targetName[0]]: {
+          ...values[targetName[0]],
+          [targetName[1]]: target.value
+        }
+      })
+    } else {
+      setValues({
+        ...values,
+        [target.name]: target.value
+      });
+    }
 
     localStorage.setItem("teleconsulta", JSON.stringify({ ...values, [target.name]: target.value }))
   }
