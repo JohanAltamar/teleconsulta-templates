@@ -4,11 +4,11 @@ import { AppContext } from "../../context/AppContext";
 import Form from ".";
 
 const Displayer = () => {
-  const { option } = useContext(AppContext);
+  const { option, formRef } = useContext(AppContext);
 
   return (
     <>
-      <Typography align="center" variant="h5">
+      <Typography align="center" variant="h5" ref={formRef}>
         Datos del paciente - {option}
       </Typography>
       {option === "no contesta" && <Form option={option} />}
