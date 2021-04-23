@@ -18,11 +18,24 @@ import printReport from "../../utils/printReport";
 
 const useStyles = makeStyles((theme) => ({
   form: {
+    display: "flex",
+    flexWrap: "wrap",
     margin: "auto",
-    marginTop: theme.spacing(2),
-    maxWidth: "380px",
+    maxWidth: "100%",
+    padding: theme.spacing(2),
     "& > *": {
       marginBottom: theme.spacing(2),
+      minWidth: "calc(33.3% - 6px)",
+      maxWidth: "calc(33.3% - 6px)",
+      "&:nth-child(3n - 1)": {
+        marginRight: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+      },
+      "& > .MuiFormGroup-root": {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+      },
     },
   },
   buttonsContainer: {
@@ -437,7 +450,7 @@ const Form = ({ option, caseField, hasTest }) => {
       {/* ! ULTIMO - BUTTONS CONTAINER */}
       <div className={classes.buttonsContainer}>
         <Button variant="contained" color="primary" size="medium" type="submit">
-          Generar Reporte
+          Reporte
         </Button>
         <Button
           variant="contained"
