@@ -7,8 +7,9 @@ import './App.css';
 
 function App() {
   const [option, setOption] = useState("nuevo");
-  const [formValue, handleInputChange, reset, resetSomeFields] = useForm(initialState);
+  const [formValue, handleInputChange, reset, resetSomeFields, updateSomeFields] = useForm(initialState);
   const [emailModal, setEmailModal] = useState(false);
+  const [hcModal, setHcModal] = useState(false);
 
   const formRef = useRef(null);
   useEffect(() => {
@@ -18,7 +19,7 @@ function App() {
   }, [option])
 
   return (
-    <AppContext.Provider value={{ option, setOption, formValue, handleInputChange, reset, resetSomeFields, setEmailModal, emailModal, formRef }}>
+    <AppContext.Provider value={{ option, setOption, formValue, handleInputChange, reset, resetSomeFields, updateSomeFields, setEmailModal, emailModal, formRef, hcModal, setHcModal }}>
       <AppRouter />
     </AppContext.Provider>
   );
