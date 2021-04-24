@@ -312,6 +312,7 @@ const Form = ({ option, caseField, hasTest }) => {
             value={priority}
             name="priority"
             onChange={handleInputChange}
+            type="number"
           />
 
           <FormControl component="fieldset" fullWidth>

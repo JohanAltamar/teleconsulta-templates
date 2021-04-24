@@ -5,7 +5,7 @@ const initialState = {
   telephone: "",
   department: "1",
   city: "",
-  caso: "2",
+  caso: 2,
   test: "si",
   testType: "antigenica",
   testLoaded: "si",
