@@ -204,6 +204,7 @@ const Form = ({ option, caseField, hasTest }) => {
         </Field>
       )}
 
+      {/* SEGUIMIENTO */}
       {option === "seguimiento" && (
         <>
           <FormControl component="fieldset">
@@ -259,11 +260,17 @@ const Form = ({ option, caseField, hasTest }) => {
                 control={<Radio />}
                 label="Negativo"
               />
+              <FormControlLabel
+                value="pendiente"
+                control={<Radio />}
+                label="Pendiente"
+              />
             </RadioGroup>
           </FormControl>
         </>
       )}
 
+      {/* NUEVO */}
       {option === "nuevo" && (
         <>
           <Field
