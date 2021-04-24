@@ -51,6 +51,17 @@ export const useForm = (initialState = {}) => {
     localStorage.setItem("teleconsulta", JSON.stringify({ ...values, ...resetObject }))
   }
 
+  const updateSomeFields = (...fields) => {
+    const updateObject = {};
+    fields.forEach(({ name, value }) => {
+      updateObject[name] = value;
+    })
+
+    setValues({ ...values, ...updateObject })
+
+    localStorage.setItem("teleconsulta", JSON.stringify({ ...values, ...updateObject }))
+  }
+
 
   const handleInputChange = ({ target }) => {
     const isObjectTarget = target.name.includes(".");
@@ -92,6 +103,6 @@ export const useForm = (initialState = {}) => {
     localStorage.setItem("teleconsulta", JSON.stringify({ ...values, [target.name]: target.value }))
   }
 
-  return [values, handleInputChange, reset, resetSomeFields];
+  return [values, handleInputChange, reset, resetSomeFields, updateSomeFields];
 
 }
