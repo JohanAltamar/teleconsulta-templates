@@ -21,6 +21,9 @@ const HcModal = ({ open, handleClose }) => {
         updateSomeFields({ name: "hcMessage", value: templates["no contesta"] })
       } else if (option === "nuevo") {
         updateSomeFields({ name: "hcMessage", value: getHcTemplate(option, formValue) })
+      } else if (option === "reinfeccion") {
+        updateSomeFields({ name: "hcMessage", value: getHcTemplate(option, formValue) })
+
       }
     }
   }
