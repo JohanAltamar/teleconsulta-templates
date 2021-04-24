@@ -54,9 +54,13 @@ const Field = ({ children, ...rest }) => {
 
 const Form = ({ option, caseField, hasTest }) => {
   const classes = useStyles();
-  const { formValue, handleInputChange, reset, setEmailModal } = useContext(
-    AppContext
-  );
+  const {
+    formValue,
+    handleInputChange,
+    reset,
+    setEmailModal,
+    setHcModal,
+  } = useContext(AppContext);
 
   const {
     name,
@@ -104,6 +108,11 @@ const Form = ({ option, caseField, hasTest }) => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     printReport(option, formValue);
+  };
+
+  const handleShowHistoriaClinica = () => {
+    // printHistoria(option, formValue);
+    setHcModal(true);
   };
 
   const handleEmailModalState = () => {
@@ -528,6 +537,14 @@ const Form = ({ option, caseField, hasTest }) => {
       <div className={classes.buttonsContainer}>
         <Button variant="contained" color="primary" size="medium" type="submit">
           Reporte
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="medium"
+          onClick={handleShowHistoriaClinica}
+        >
+          Historia
         </Button>
         <Button
           variant="contained"

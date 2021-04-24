@@ -37,7 +37,8 @@ const initialState = {
     name: "",
     email: "",
     cellphone: "",
-  }
+  },
+  hcMessage: "",
 };
 
 export default initialState;

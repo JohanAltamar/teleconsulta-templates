@@ -7,6 +7,7 @@ import RadioButtonsGroup from "../components/RadioButtons"
 import { AppContext } from "../context/AppContext"
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router"
+import HcModal from "../components/Modals/HcModal"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
 const MainPage = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { emailModal, setEmailModal, formValue } = useContext(AppContext)
+  const { emailModal, setEmailModal, formValue, hcModal, setHcModal } = useContext(AppContext)
   const { from, appPassword } = formValue;
 
   const closeEmailModal = () => {
     setEmailModal(false)
+  }
+
+  const closeHcModal = () => {
+    setHcModal(false)
   }
 
   const logged = from && appPassword;
@@ -52,6 +57,7 @@ const MainPage = () => {
       <RadioButtonsGroup />
       <Displayer />
       <EmailModal open={emailModal} handleClose={closeEmailModal} />
+      <HcModal open={hcModal} handleClose={closeHcModal} />
     </>
   )
 }
