@@ -56,7 +56,24 @@ export const useForm = (initialState = {}) => {
     const isObjectTarget = target.name.includes(".");
     const targetName = target.name.split(".")
 
-    if (isObjectTarget) {
+    if (target.name === "testLoaded") {
+      const testObject = {
+        testResult: target.value === "no" ? "pendiente" : "positivo",
+        testLoaded: target.value === "no" ? "no" : "si",
+      }
+      setValues({
+        ...values,
+        ...testObject
+      });
+    }
+    else if (target.name === "caso") {
+      setValues({
+        ...values,
+        [target.name]: target.value,
+        testType: target.value === 5 ? "PCR" : "antigenica"
+      });
+    }
+    else if (isObjectTarget) {
       setValues({
         ...values,
         [targetName[0]]: {
@@ -64,7 +81,8 @@ export const useForm = (initialState = {}) => {
           [targetName[1]]: target.value
         }
       })
-    } else {
+    }
+    else {
       setValues({
         ...values,
         [target.name]: target.value
