@@ -10,12 +10,13 @@ import DropZone from '../Uploads/DropZone'
 import sendMail from '../../helpers/sendMail';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
+import templates from '../../utils/emailTemplates.json';
 
 const EmailModal = ({ open, handleClose }) => {
   const history = useHistory();
   const [files, setFiles] = useState([])
 
-  const { formValue, handleInputChange, resetSomeFields } = useContext(AppContext);
+  const { formValue, handleInputChange, resetSomeFields, option, updateSomeFields } = useContext(AppContext);
   const { email, message, subject, from, appPassword } = formValue;
 
   const handleSendMessage = async () => {
@@ -49,8 +50,18 @@ const EmailModal = ({ open, handleClose }) => {
     }
   }
 
+  const handleEnter = () => {
+    if (option === "no contesta") {
+      updateSomeFields({ name: "subject", value: "CITA INASISTIDA" }, {
+        name: "message", value: templates['cita inasistida']})
+    }
+    else {
+      resetSomeFields("subject", "message")
+    }
+  }
+
   return (
-    <Dialog open={open} onClose={() => handleClose()} maxWidth="sm" >
+    <Dialog open={open} onEnter={handleEnter} onClose={() => handleClose()} maxWidth="sm" >
       <DialogTitle id="form-dialog-title">Correo Electrónico</DialogTitle>
       <DialogContent dividers>
         <TextField
@@ -92,7 +103,7 @@ const EmailModal = ({ open, handleClose }) => {
         <Button onClick={handleClose} color="secondary">
           Cancelar
           </Button>
-        <Button onClick={handleSendMessage} color="primary" disabled={!files.length} variant="outlined">
+        <Button onClick={handleSendMessage} color="primary" disabled={!files.length && option !== "no contesta"} variant="outlined">
           Enviar
           </Button>
       </DialogActions>
