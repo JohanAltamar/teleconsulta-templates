@@ -29,7 +29,7 @@ const HcModal = ({ open, handleClose }) => {
   }
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(hcMessage.toUpperCase());
+    navigator.clipboard.writeText(hcMessage);
     Swal.fire({
       titleText: "Éxito",
       icon: "success",
