@@ -12,11 +12,11 @@ const reinfeccion = (values) => {
 
 const getHcTemplate = (option, values) => {
   if (option === "nuevo" && values.caso === 5) {
-    return nuevo5(values).toUpperCase();
+    return nuevo5(values);
   } else if (option === "nuevo" && values.caso === 2) {
-    return nuevo2(values).toUpperCase();
+    return nuevo2(values);
   } else if (option === "reinfeccion") {
-    return reinfeccion(values).toUpperCase();
+    return reinfeccion(values);
   }
 }
 
