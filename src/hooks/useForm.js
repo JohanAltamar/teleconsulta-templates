@@ -67,12 +67,7 @@ export const useForm = (initialState = {}) => {
     const isObjectTarget = target.name.includes(".");
     const targetName = target.name.split(".")
 
-    if (target.name === "hcMessage") {
-      setValues({
-        ...values,
-        [target.name]: target.value.toUpperCase()
-      });
-    } else if (target.name === "testLoaded") {
+    if (target.name === "testLoaded") {
       const testObject = {
         testResult: target.value === "no" ? "pendiente" : "positivo",
         testLoaded: target.value === "no" ? "no" : "si",
