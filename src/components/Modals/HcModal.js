@@ -1,19 +1,21 @@
-import React, { useContext } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { AppContext } from '../../context/AppContext';
+import { useLocation } from 'react-router';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { useAppContext } from '../../context/AppContext';
 import templates from '../../utils/hcTemplates.json';
 import Swal from 'sweetalert2';
 import getHcTemplate from '../../utils/getHcTemplate';
 
 const HcModal = ({ open, handleClose }) => {
-  const { formValue, handleInputChange, resetSomeFields, option, updateSomeFields } = useContext(AppContext);
+  const { pathname } = useLocation();
+
+  const { formValue, handleInputChange, resetSomeFields, option, updateSomeFields } = useAppContext();
 
   const { hcMessage, caso } = formValue;
+
+  const handleBuildSeguimientoHistory = () => {
+
+    updateSomeFields({ name: "hcMessage", value: getHcTemplate(undefined, formValue, inSeguimientoPage) })
+  };
 
   const handleEnter = () => {
     if (!hcMessage) {
@@ -61,18 +63,20 @@ const HcModal = ({ open, handleClose }) => {
     handleExit()
   }
 
+  const inSeguimientoPage = pathname.match(/seguimiento/i) ? true : false;
+
   return (
     <Dialog
       fullWidth maxWidth="lg"
       disableBackdropClick
       disableEscapeKeyDown
       open={open}
-      onEnter={handleEnter}
+      onEnter={inSeguimientoPage ? handleBuildSeguimientoHistory : handleEnter}
       onBackdropClick={handleBackdropClick}
       onEscapeKeyDown={handleBackdropClick}
       onClose={() => handleClose()}
     >
-      <DialogTitle id="form-dialog-title">Historia Clínica - Caso {caso}</DialogTitle>
+      <DialogTitle id="form-dialog-title">Historia Clínica - {inSeguimientoPage ? "Seguimiento" : "Caso " + caso}</DialogTitle>
       <DialogContent dividers>
         <TextField
           fullWidth

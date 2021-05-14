@@ -39,6 +39,10 @@ const initialState = {
     cellphone: "",
   },
   hcMessage: "",
+  gender: "masculino",
+  links: "",
+  linksType: "familiar",
+  lastSymptoms: "",
 };
 
 export default initialState;
