@@ -43,6 +43,8 @@ const initialState = {
   links: "",
   linksType: "familiar",
   lastSymptoms: "",
+  callType: "efectivo",
+  username: "luz",
 };
 
 export default initialState;

@@ -10,6 +10,7 @@ function App() {
   const [formValue, handleInputChange, reset, resetSomeFields, updateSomeFields] = useForm(initialState);
   const [emailModal, setEmailModal] = useState(false);
   const [hcModal, setHcModal] = useState(false);
+  const [callsModal, setCallsModal] = useState(false);
 
   const formRef = useRef(null);
   useEffect(() => {
@@ -18,8 +19,10 @@ function App() {
     }
   }, [option])
 
+  const contextValues = { option, setOption, formValue, handleInputChange, reset, resetSomeFields, updateSomeFields, setEmailModal, emailModal, formRef, hcModal, setHcModal, callsModal, setCallsModal };
+
   return (
-    <AppContext.Provider value={{ option, setOption, formValue, handleInputChange, reset, resetSomeFields, updateSomeFields, setEmailModal, emailModal, formRef, hcModal, setHcModal }}>
+    <AppContext.Provider value={contextValues}>
       <AppRouter />
     </AppContext.Provider>
   );

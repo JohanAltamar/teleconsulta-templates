@@ -32,11 +32,12 @@ export const useForm = (initialState = {}) => {
   }, [initialState])
 
   const reset = () => {
-    const { from: initialFrom, appPassword: initialPassword, ...rest } = initialState;
-    const { from, appPassword } = values;
+    const { from: initialFrom, appPassword: initialPassword, username: _username, ...rest } = initialState;
+    const { from, appPassword, username } = values;
 
     setValues({ ...values, ...rest });
-    localStorage.setItem("teleconsulta", JSON.stringify({ from, appPassword, ...rest }))
+    
+    localStorage.setItem("teleconsulta", JSON.stringify({ from, appPassword, username, ...rest }))
     fetchDepartments();
   }
 

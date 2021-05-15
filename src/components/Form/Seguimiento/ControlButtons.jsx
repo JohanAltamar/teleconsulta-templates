@@ -5,7 +5,12 @@ import { useStyles } from "./styles";
 
 const ControlButtons = () => {
   const classes = useStyles();
-  const { formValue, reset, setEmailModal, setHcModal } = useAppContext();
+  const { formValue, reset, setEmailModal, setHcModal, setCallsModal } =
+    useAppContext();
+
+  const handleShowCallsModal = () => {
+    setCallsModal(true);
+  };
 
   const handleShowHistoriaClinica = () => {
     setHcModal(true);
@@ -26,8 +31,14 @@ const ControlButtons = () => {
 
   return (
     <div className={classes.buttonsContainer}>
-      <Button variant="contained" color="primary" size="medium" type="submit">
-        Reporte
+      <Button
+        variant="contained"
+        color="primary"
+        size="medium"
+        type="button"
+        onClick={handleShowCallsModal}
+      >
+        Llamadas
       </Button>
       <Button
         variant="outlined"
